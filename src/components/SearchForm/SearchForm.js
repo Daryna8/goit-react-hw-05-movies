@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SearchForm = () => {
   const [query, setQuery] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  useEffect(() => {
-    const value = searchParams.get('query');
-    setQuery(value ?? '');
-  }, [searchParams]);
+  const [, setSearchParams] = useSearchParams();
 
   const handleChange = e => {
     setQuery(e.target.value);
@@ -17,6 +12,9 @@ const SearchForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (query === '') {
+      return;
+    }
     setSearchParams({ query });
   };
 
