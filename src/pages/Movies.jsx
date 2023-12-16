@@ -6,14 +6,18 @@ import { InfinitySpin } from 'react-loader-spinner';
 import styled from 'styled-components';
 
 const Movies = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const queryParam = searchParams.get('query');
   const [movies, isLoading] = useHttp(fetchMoviesByQuery, queryParam);
   const location = useLocation();
 
+  const handleSearchSubmit = query => {
+    setSearchParams({ query });
+  };
+
   return (
     <div>
-      <SearchForm />
+      <SearchForm onSumbit={handleSearchSubmit} />
       {isLoading && <InfinitySpin />}
       {movies && (
         <StyledList>

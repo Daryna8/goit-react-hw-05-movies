@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-const SearchForm = () => {
+const SearchForm = ({ onSumbit }) => {
   const [query, setQuery] = useState('');
-  const [, setSearchParams] = useSearchParams();
 
   const handleChange = e => {
     setQuery(e.target.value);
@@ -15,7 +13,7 @@ const SearchForm = () => {
     if (query === '') {
       return;
     }
-    setSearchParams({ query });
+    onSumbit(query);
   };
 
   return (
